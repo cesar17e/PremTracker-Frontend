@@ -1,26 +1,204 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+:root,
+[data-theme="premtracker-dark"] {
+  color-scheme: dark;
+  --color-base-100: #23272b;
+  --color-base-200: #2b3035;
+  --color-base-300: #343a40;
+  --color-base-content: #f1f5f7;
+  --color-primary: #34d399;
+  --color-primary-content: #052e1b;
+  --color-secondary: #2b3035;
+  --color-secondary-content: #f1f5f7;
+  --color-accent: #34d399;
+  --color-accent-content: #052e1b;
+  --color-neutral: #171a1d;
+  --color-neutral-content: #fafcfc;
+  --color-info: #34d399;
+  --color-info-content: #052e1b;
+  --color-success: #34d399;
+  --color-success-content: #052e1b;
+  --color-warning: #fbbf24;
+  --color-warning-content: #2a1a03;
+  --color-error: #f87171;
+  --color-error-content: #240808;
+  --radius-box: 1.25rem;
+  --radius-field: 0.9rem;
+  --radius-selector: 999px;
+  --border: 1px;
+  --background: #1b1f23;
+  --foreground: #f1f5f7;
+  --page-radial: rgba(52, 211, 153, 0.08);
+  --page-gradient-start: #1e2327;
+  --page-gradient-mid: #252b30;
+  --page-gradient-end: #2a3137;
+  --page-overlay-top: rgba(255, 255, 255, 0.02);
+  --page-overlay-bottom: rgba(255, 255, 255, 0);
+  --page-overlay-radial: rgba(52, 211, 153, 0.05);
+  --glass-top: rgba(51, 58, 65, 0.84);
+  --glass-bottom: rgba(38, 44, 50, 0.78);
+  --glass-accent: rgba(52, 211, 153, 0.04);
+  --surface-top: rgba(48, 55, 62, 0.96);
+  --surface-bottom: rgba(39, 46, 52, 0.96);
+  --surface-accent: rgba(255, 255, 255, 0.02);
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --surface-shadow: rgba(0, 0, 0, 0.18);
+  --panel-fill: rgba(255, 255, 255, 0.04);
+  --pitch-line: rgba(52, 211, 153, 0.06);
+  --muted-text: rgba(241, 245, 247, 0.7);
+  --subtle-text: rgba(241, 245, 247, 0.46);
+  --accent-strong: rgba(52, 211, 153, 0.86);
+}
+
+[data-theme="premtracker-light"] {
+  color-scheme: light;
+  --color-base-100: #f8fbfb;
+  --color-base-200: #edf3f2;
+  --color-base-300: #dbe4e2;
+  --color-base-content: #182a33;
+  --color-primary: #16a871;
+  --color-primary-content: #f3fdf8;
+  --color-secondary: #e4ecea;
+  --color-secondary-content: #182a33;
+  --color-accent: #16a871;
+  --color-accent-content: #f3fdf8;
+  --color-neutral: #d8e3e0;
+  --color-neutral-content: #182a33;
+  --color-info: #16a871;
+  --color-info-content: #f3fdf8;
+  --color-success: #16a871;
+  --color-success-content: #f3fdf8;
+  --color-warning: #c88d1f;
+  --color-warning-content: #fff8eb;
+  --color-error: #d55e5e;
+  --color-error-content: #fff7f7;
+  --radius-box: 1.25rem;
+  --radius-field: 0.9rem;
+  --radius-selector: 999px;
+  --border: 1px;
+  --background: #dde7e6;
+  --foreground: #182a33;
+  --page-radial: rgba(22, 168, 113, 0.08);
+  --page-gradient-start: #ebf2f1;
+  --page-gradient-mid: #e2eaea;
+  --page-gradient-end: #d9e3e2;
+  --page-overlay-top: rgba(255, 255, 255, 0.42);
+  --page-overlay-bottom: rgba(255, 255, 255, 0.06);
+  --page-overlay-radial: rgba(22, 168, 113, 0.05);
+  --glass-top: rgba(252, 254, 254, 0.88);
+  --glass-bottom: rgba(244, 248, 247, 0.86);
+  --glass-accent: rgba(22, 168, 113, 0.05);
+  --surface-top: rgba(255, 255, 255, 0.98);
+  --surface-bottom: rgba(247, 250, 249, 0.99);
+  --surface-accent: rgba(255, 255, 255, 0.42);
+  --surface-border: rgba(24, 42, 51, 0.14);
+  --surface-shadow: rgba(24, 42, 51, 0.12);
+  --panel-fill: rgba(24, 42, 51, 0.045);
+  --pitch-line: rgba(22, 168, 113, 0.06);
+  --muted-text: rgba(24, 42, 51, 0.78);
+  --subtle-text: rgba(24, 42, 51, 0.58);
+  --accent-strong: rgba(22, 168, 113, 0.9);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", "Consolas", monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, var(--page-radial), transparent 28rem),
+    linear-gradient(
+      180deg,
+      var(--page-gradient-start) 0%,
+      var(--page-gradient-mid) 46%,
+      var(--page-gradient-end) 100%
+    );
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, var(--page-overlay-top), var(--page-overlay-bottom)),
+    radial-gradient(circle at 20% 0%, var(--page-overlay-radial), transparent 20rem);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.glass-panel {
+  background:
+    linear-gradient(180deg, var(--glass-top), var(--glass-bottom)),
+    linear-gradient(135deg, var(--glass-accent), rgba(52, 211, 153, 0));
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 24px 64px var(--surface-shadow);
+  backdrop-filter: blur(14px);
+}
+
+.surface-card {
+  background:
+    linear-gradient(180deg, var(--surface-top), var(--surface-bottom)),
+    linear-gradient(180deg, var(--surface-accent), rgba(255, 255, 255, 0));
+  border: 1px solid var(--surface-border);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.02),
+    0 10px 24px var(--surface-shadow);
+}
+
+.pitch-grid {
+  background-image:
+    linear-gradient(var(--pitch-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pitch-line) 1px, transparent 1px);
+  background-position: center center;
+  background-size: 2.2rem 2.2rem;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.section-kicker::before {
+  display: block;
+  height: 1px;
+  width: 2.5rem;
+  background: currentColor;
+  content: "";
+}
+
+[data-theme="premtracker-dark"] .theme-icon-dark,
+[data-theme="premtracker-light"] .theme-icon-light {
+  display: inline-flex;
+}
+
+[data-theme="premtracker-dark"] .theme-icon-light,
+[data-theme="premtracker-light"] .theme-icon-dark {
+  display: none;
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.18);
+  color: var(--foreground);
 }
