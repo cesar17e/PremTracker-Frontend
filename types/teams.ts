@@ -3,10 +3,14 @@ export type TeamListItem = {
   externalTeamId: number;
   name: string;
   shortName: string | null;
+  symbolicName: string | null;
   color: string | null;
   awayColor: string | null;
+  logoUrl: string | null;
   imageVersion: number | null;
 };
+
+export type TeamsResponse = TeamListItem[];
 
 export type TeamMini = {
   id: number;
