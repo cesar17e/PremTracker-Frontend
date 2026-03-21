@@ -1,4 +1,4 @@
-import type { ApiErrorPayload } from "@/types/api";
+import type { AppApiError, ApiErrorPayload } from "@/types/api";
 
 function isObjectLike(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
@@ -6,6 +6,14 @@ function isObjectLike(value: unknown): value is Record<string, unknown> {
 
 export function isApiErrorPayload(value: unknown): value is ApiErrorPayload {
   return isObjectLike(value);
+}
+
+export function isAppApiError(value: unknown): value is AppApiError {
+  return (
+    isObjectLike(value) &&
+    typeof value.status === "number" &&
+    typeof value.message === "string"
+  );
 }
 
 export function extractApiError(

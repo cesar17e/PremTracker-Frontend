@@ -31,7 +31,7 @@ export default function LandingPage() {
           <div className="space-y-4">
             <p className="section-kicker">Analytics product for EPL supporters</p>
             <h1 className="max-w-3xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-balance text-base-content sm:text-4xl lg:text-[2.85rem]">
-              PremTracker - Track your favorite Premier League clubs with analytics you can actually understand.
+              PremTracker - Track your favorite Premier League clubs with analytics you can actually understand
             </h1>
             <p className="max-w-2xl text-base leading-7 text-base-content/70 sm:text-lg">
               Check form, scan upcoming fixtures, follow trends over time, and keep your favorite

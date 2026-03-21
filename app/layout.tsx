@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AppProviders } from "@/app/_providers/app-providers";
 
 export const metadata: Metadata = {
   title: {
@@ -48,7 +49,9 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   );
 }

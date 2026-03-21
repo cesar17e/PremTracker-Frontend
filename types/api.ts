@@ -11,3 +11,5 @@ export type AppApiError = {
   message: string;
   payload?: ApiErrorPayload;
 };
+
+export type UserId = number | string;

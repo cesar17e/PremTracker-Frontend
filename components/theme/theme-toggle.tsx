@@ -1,5 +1,9 @@
 "use client";
 
+type ThemeToggleProps = {
+  compact?: boolean;
+};
+
 const STORAGE_KEY = "premtracker-theme";
 
 function readThemeFromDom() {
@@ -17,7 +21,7 @@ function applyTheme(theme: "light" | "dark") {
   window.localStorage.setItem(STORAGE_KEY, theme);
 }
 
-export function ThemeToggle() {
+export function ThemeToggle({ compact = false }: ThemeToggleProps) {
   function handleToggle() {
     const nextTheme = readThemeFromDom() === "dark" ? "light" : "dark";
     applyTheme(nextTheme);
@@ -27,7 +31,11 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={handleToggle}
-      className="btn btn-ghost rounded-full border border-base-content/10 px-4 text-base-content/78"
+      className={
+        compact
+          ? "btn btn-ghost btn-sm rounded-full border border-base-content/10 px-3 text-base-content/78"
+          : "btn btn-ghost rounded-full border border-base-content/10 px-4 text-base-content/78"
+      }
       aria-label="Toggle theme"
       title="Toggle theme"
       suppressHydrationWarning
@@ -48,7 +56,8 @@ export function ThemeToggle() {
           />
         </svg>
       </span>
-      <span className="text-sm">Theme</span>
+
+      <span className={compact ? "text-sm" : "text-sm"}>Theme</span>
     </button>
   );
 }
