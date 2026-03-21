@@ -2,11 +2,16 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useState } from "react";
-import type { TeamListItem } from "@/types/teams";
+type TeamCrestModel = {
+  name: string;
+  shortName: string | null;
+  symbolicName?: string | null;
+  logoUrl?: string | null;
+};
 
 // These crest URLs are stored in the backend and may come from varying remote domains.
 // A fixed-size <img> keeps the card stable without introducing image-domain config.
-function getFallbackMonogram(team: TeamListItem) {
+function getFallbackMonogram(team: TeamCrestModel) {
   const source = team.symbolicName?.trim() || team.shortName?.trim() || team.name.trim();
   const letters = source
     .split(/\s+/)
@@ -22,7 +27,7 @@ export function TeamCrest({
   team,
   accent,
 }: {
-  team: TeamListItem;
+  team: TeamCrestModel;
   accent: string;
 }) {
   const [imageFailed, setImageFailed] = useState(false);

@@ -25,7 +25,7 @@ function getErrorCopy(error: unknown) {
 
 function TeamGridSkeleton() {
   return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    <div className="grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
       {Array.from({ length: 6 }).map((_, index) => (
         <div key={index} className="surface-card rounded-[1.6rem] p-5">
           <LoadingSkeleton className="h-1.5 rounded-full" />
@@ -105,9 +105,9 @@ export function TeamsWorkspace() {
             <h1 className="mt-3 text-[1.95rem] font-semibold tracking-[-0.03em] text-base-content">
               Choose a club to start with
             </h1>
-            <p className="mt-3 text-sm leading-6 text-base-content/70">
-              Browse every club already available in your dashboard now, then drill into form,
-              fixtures, and trend views in the next pass.
+            <p className="font-bold mt-3 text-sm leading-6 text-base-content/70">
+                Select a club to unlock its full analytics dashboard — including recent form,
+                upcoming fixtures, and performance trends.
             </p>
           </div>
 
@@ -189,7 +189,7 @@ export function TeamsWorkspace() {
       ) : null}
 
       {loadState === "ready" && filteredTeams.length ? (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
           {filteredTeams.map((team) => (
             <TeamCard key={team.id} team={team} />
           ))}
