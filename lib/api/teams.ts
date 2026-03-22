@@ -51,13 +51,21 @@ export function getTeamTrends(teamId: number, matches = 20, window = 5) {
   );
 }
 
-export function getTeamFixtureDifficulty(teamId: number, fixtures = 5) {
+export function getTeamFixtureDifficulty(
+  teamId: number,
+  options: {
+    fixtures?: number;
+    oppMatches?: number;
+    recentOppMatches?: number;
+    alpha?: number;
+  } = {}
+) {
   return fetchProtectedApi<FixtureDifficultyResponse>(
     withQuery(`/api/teams/${teamId}/fixture-difficulty`, {
-      fixtures,
-      oppMatches: 15,
-      recentOppMatches: 5,
-      alpha: 0.4,
+      fixtures: options.fixtures ?? 5,
+      oppMatches: options.oppMatches ?? 15,
+      recentOppMatches: options.recentOppMatches ?? 5,
+      alpha: options.alpha ?? 0.4,
     })
   );
 }

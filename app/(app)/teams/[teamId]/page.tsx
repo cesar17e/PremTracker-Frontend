@@ -11,5 +11,5 @@ export default async function TeamDetailRoute(
     notFound();
   }
 
-  return <TeamDetailPage teamId={parsedTeamId} />;
+  return <TeamDetailPage key={parsedTeamId} teamId={parsedTeamId} />;
 }
