@@ -361,16 +361,16 @@ This is important to me because good technical systems should not become inacces
 ### Form Analysis (Explainable Model)
 
 <p align="center">
-  <img src="./docs/form-result.png" width="65%" />
+  <img src="./docs/form-result.png" width="52%" />
 </p>
 
 <div align="center">
-  <img src="./docs/form-overview.png" height="260" />
-  <img src="./docs/form-model.png" height="260" />
+  <img src="./docs/form-overview.png" width="48%" />
+  <img src="./docs/form-model.png" width="48%" />
 </div>
 
 **Overview**
-- Main: Final explainable form rating with reasoning (Liverpool example)  
+- Top: Final explainable form rating with reasoning (Liverpool example)  
 - Bottom Left: Match sequence and form snapshot  
 - Bottom Right: Core model definitions (PPG, ΔPPG, rolling windows)  
 
