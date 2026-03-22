@@ -50,4 +50,25 @@ export type LogoutResponse = {
   ok: boolean;
 };
 
+export type ForgotPasswordResponse = {
+  ok: boolean;
+  message: string;
+};
+
+export type ResetPasswordLinkResponse = {
+  ok: boolean;
+  message: string;
+  token: string;
+};
+
+export type ResetPasswordResponse = {
+  ok: boolean;
+  message: string;
+};
+
+export type VerifyEmailResponse = {
+  ok: boolean;
+  message: string;
+};
+
 export type AuthStatus = "loading" | "authenticated" | "unauthenticated";

@@ -1,14 +1,18 @@
-import { fetchProtectedApi, fetchSessionApi } from "@/lib/api/client";
+import { fetchApi, fetchProtectedApi, fetchSessionApi } from "@/lib/api/client";
 import type {
   AuthMeResponse,
   AuthResponseUser,
   AuthSessionUser,
+  ForgotPasswordResponse,
   LoginRequest,
   LoginResponse,
   LogoutResponse,
+  ResetPasswordLinkResponse,
+  ResetPasswordResponse,
   RefreshResponse,
   RegisterRequest,
   RegisterResponse,
+  VerifyEmailResponse,
 } from "@/types/auth";
 
 const jsonHeaders = {
@@ -59,6 +63,34 @@ export function logoutRequest() {
   return fetchSessionApi<LogoutResponse>("/api/auth/logout", {
     method: "POST",
   });
+}
+
+export function forgotPasswordRequest(email: string) {
+  return fetchApi<ForgotPasswordResponse>("/api/auth/forgot-password", {
+    method: "POST",
+    headers: jsonHeaders,
+    body: JSON.stringify({ email }),
+  });
+}
+
+export function getResetPasswordLinkRequest(token: string) {
+  return fetchApi<ResetPasswordLinkResponse>(
+    `/api/auth/reset-password?token=${encodeURIComponent(token)}`
+  );
+}
+
+export function resetPasswordRequest(token: string, newPassword: string) {
+  return fetchApi<ResetPasswordResponse>("/api/auth/reset-password", {
+    method: "POST",
+    headers: jsonHeaders,
+    body: JSON.stringify({ token, newPassword }),
+  });
+}
+
+export function verifyEmailTokenRequest(token: string) {
+  return fetchApi<VerifyEmailResponse>(
+    `/api/auth/verify-email?token=${encodeURIComponent(token)}`
+  );
 }
 
 export function getAuthMe(accessToken: string) {

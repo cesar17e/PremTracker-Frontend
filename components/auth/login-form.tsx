@@ -145,7 +145,11 @@ export function LoginForm() {
         </label>
 
         <p className="text-sm leading-6 text-base-content/58">
-          Password reset arrives in the next auth phase.
+          Forgot your password?{" "}
+          <Link href="/forgot-password" className="font-semibold text-primary">
+            Start a reset here
+          </Link>
+          .
         </p>
 
         <button
