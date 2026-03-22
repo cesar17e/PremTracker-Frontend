@@ -15,12 +15,25 @@ export function FavoriteButton({
   const { isFavorite, pendingTeamIds, toggleFavorite } = useFavorites();
   const favorite = isFavorite(team.id);
   const pending = pendingTeamIds.has(team.id);
+  const label = pending
+    ? favorite
+      ? "Removing..."
+      : "Saving..."
+    : favorite
+    ? compact
+      ? "Remove"
+      : "Remove club"
+    : compact
+    ? "Save"
+    : "Save club";
 
   return (
     <button
       type="button"
       disabled={pending}
       aria-pressed={favorite}
+      aria-label={label}
+      title={label}
       className={`cursor-pointer rounded-full border border-base-content/10 transition ${
         compact
           ? "px-3 py-1.5 text-sm"
@@ -29,7 +42,7 @@ export function FavoriteButton({
         favorite
           ? "bg-primary/14 text-primary"
           : "bg-base-content/[0.04] text-base-content/72"
-      } disabled:cursor-wait disabled:opacity-70`}
+        } disabled:cursor-wait disabled:opacity-70`}
       onClick={async (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -40,17 +53,7 @@ export function FavoriteButton({
         }
       }}
     >
-      {pending
-        ? favorite
-          ? "Removing..."
-          : "Saving..."
-        : favorite
-        ? compact
-          ? "Saved"
-          : "Saved club"
-        : compact
-        ? "Save"
-        : "Save club"}
+      {label}
     </button>
   );
 }

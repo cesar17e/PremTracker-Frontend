@@ -55,12 +55,6 @@ export type ForgotPasswordResponse = {
   message: string;
 };
 
-export type ResetPasswordLinkResponse = {
-  ok: boolean;
-  message: string;
-  token: string;
-};
-
 export type ResetPasswordResponse = {
   ok: boolean;
   message: string;

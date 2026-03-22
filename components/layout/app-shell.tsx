@@ -50,7 +50,10 @@ export function AppShell({ children }: { children: ReactNode }) {
               <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[color:var(--subtle-text)]">
                 Session
               </p>
-              <p className="mt-2.5 text-sm font-semibold text-base-content">
+              <p
+                className="mt-2.5 break-all text-sm font-semibold leading-6 text-base-content [overflow-wrap:anywhere]"
+                title={user?.email ?? "Signed out"}
+              >
                 {user?.email ?? "Signed out"}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2">

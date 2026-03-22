@@ -7,85 +7,32 @@ import { AuthCard } from "@/components/auth/auth-card";
 import { PasswordResetSuccessNotice } from "@/components/auth/password-reset-success-notice";
 import { VerificationResultCard } from "@/components/auth/verification-result-card";
 import { StatusAlert } from "@/components/ui/status-alert";
-import {
-  getResetPasswordLinkRequest,
-  resetPasswordRequest,
-} from "@/lib/api/auth";
+import { resetPasswordRequest } from "@/lib/api/auth";
 import { parseResetTokenFromSearchParams } from "@/lib/auth/recovery";
-import { getActionErrorMessage, isAppApiError } from "@/lib/api/errors";
+import { getActionErrorMessage } from "@/lib/api/errors";
 
 type PrepareState =
-  | { status: "loading"; token: string | null; error: string | null }
-  | { status: "ready"; token: string; error: string | null }
-  | { status: "error"; token: string | null; error: string };
+  | { status: "ready"; token: string }
+  | { status: "error"; error: string };
 
 export function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [pending, setPending] = useState(false);
-  const [prepareState, setPrepareState] = useState<PrepareState>({
-    status: "loading",
-    token: null,
-    error: null,
-  });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
 
   const tokenFromQuery = parseResetTokenFromSearchParams(searchParams);
-
-  useEffect(() => {
-    if (typeof tokenFromQuery !== "string" || !tokenFromQuery) {
-        setPrepareState({
-          status: "error",
-          token: null,
-          error: "Missing reset token. Open this page from your password reset email link.",
-        });
-      return;
-    }
-
-    const resolvedToken = tokenFromQuery;
-    let isActive = true;
-
-    async function prepareReset() {
-      setPrepareState({
-        status: "loading",
-        token: resolvedToken,
-        error: null,
-      });
-
-      try {
-        const response = await getResetPasswordLinkRequest(resolvedToken);
-        if (!isActive) {
-          return;
-        }
-
-        setPrepareState({
+  const prepareState: PrepareState =
+    typeof tokenFromQuery === "string" && tokenFromQuery
+      ? {
           status: "ready",
-          token: response.token,
-          error: null,
-        });
-      } catch (error) {
-        if (!isActive) {
-          return;
+          token: tokenFromQuery,
         }
-
-        setPrepareState({
+      : {
           status: "error",
-          token: resolvedToken,
-          error:
-            isAppApiError(error)
-              ? error.message
-              : "We couldn't prepare the reset token.",
-        });
-      }
-    }
-
-    void prepareReset();
-
-    return () => {
-      isActive = false;
-    };
-  }, [tokenFromQuery]);
+          error: "Missing reset token. Open this page from your password reset email link.",
+        };
 
   useEffect(() => {
     if (!success) {
@@ -155,21 +102,6 @@ export function ResetPasswordForm() {
         footerLinkHref="/login"
         footerLinkLabel="Back to login"
       />
-    );
-  }
-
-  if (prepareState.status === "loading") {
-    return (
-      <AuthCard
-        title="Preparing your reset"
-        description="Checking the reset token and getting the password form ready."
-      >
-        <div className="space-y-3">
-          <div className="skeleton h-11 rounded-2xl" />
-          <div className="skeleton h-11 rounded-2xl" />
-          <div className="skeleton h-11 rounded-2xl" />
-        </div>
-      </AuthCard>
     );
   }
 

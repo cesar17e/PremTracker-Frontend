@@ -7,7 +7,6 @@ import type {
   LoginRequest,
   LoginResponse,
   LogoutResponse,
-  ResetPasswordLinkResponse,
   ResetPasswordResponse,
   RefreshResponse,
   RegisterRequest,
@@ -71,12 +70,6 @@ export function forgotPasswordRequest(email: string) {
     headers: jsonHeaders,
     body: JSON.stringify({ email }),
   });
-}
-
-export function getResetPasswordLinkRequest(token: string) {
-  return fetchApi<ResetPasswordLinkResponse>(
-    `/api/auth/reset-password?token=${encodeURIComponent(token)}`
-  );
 }
 
 export function resetPasswordRequest(token: string, newPassword: string) {
