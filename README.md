@@ -363,7 +363,7 @@ This is important to me because good technical systems should not become inacces
 <div align="center">
   <img src="./docs/form-overview.png" height="260" />
   <img src="./docs/form-model.png" height="260" />
-  <img src="./docs/form-result.png" height="260" />
+  <img src="./docs/form-result.png" height="250" />
 </div>
 
 
