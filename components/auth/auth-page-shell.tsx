@@ -25,12 +25,12 @@ export function AuthPageShell({
   highlights,
 }: AuthPageShellProps) {
   return (
-    <PageContainer className="gap-6 py-6 md:gap-8 md:py-8 lg:py-10">
+    <PageContainer className="gap-5 py-5 sm:gap-6 sm:py-6 md:gap-8 md:py-8 lg:py-10">
       <section className="grid gap-6 xl:grid-cols-[minmax(0,0.8fr)_minmax(22rem,1fr)] xl:items-start">
         <div className="order-2 max-w-xl space-y-5 xl:order-1 xl:pt-4">
           <div className="space-y-3">
             <p className="section-kicker">{eyebrow}</p>
-            <h1 className="max-w-xl text-3xl font-semibold leading-tight tracking-[-0.03em] text-base-content sm:text-[2.45rem]">
+            <h1 className="max-w-xl text-[2rem] font-semibold leading-tight tracking-[-0.03em] text-base-content sm:text-[2.45rem]">
               {title}
             </h1>
             <p className="max-w-lg text-sm leading-6 text-base-content/70 sm:text-base">

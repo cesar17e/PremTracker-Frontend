@@ -29,7 +29,7 @@ export function SendFixtureEmailButton({
         <button
           type="button"
           disabled={disabled || pending}
-          className="btn btn-primary rounded-full px-5"
+          className="btn btn-primary w-full rounded-full px-5 sm:w-auto"
           onClick={() => void onSend()}
         >
           {pending ? "Sending..." : "Send digest now"}

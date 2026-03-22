@@ -28,7 +28,7 @@ export function MatchCard({
 
   return (
     <article className="rounded-[1.35rem] border border-base-content/10 bg-base-content/[0.04] p-4">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <div>
           <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[color:var(--subtle-text)]">
             {match.ended ? "Completed match" : "Upcoming fixture"}
@@ -52,14 +52,14 @@ export function MatchCard({
         )}
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-4 rounded-[1rem] border border-base-content/10 bg-base-content/[0.03] px-3 py-3 text-sm">
-        <span className="text-base-content/72">
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 rounded-[1rem] border border-base-content/10 bg-base-content/[0.03] px-3 py-3 text-sm">
+        <span className="truncate text-base-content/72">
           {match.homeTeam?.shortName || match.homeTeam?.name || "Home"}
         </span>
         <span className="font-semibold text-base-content">
           {match.homeScore ?? "-"} : {match.awayScore ?? "-"}
         </span>
-        <span className="text-base-content/72">
+        <span className="truncate text-right text-base-content/72">
           {match.awayTeam?.shortName || match.awayTeam?.name || "Away"}
         </span>
       </div>

@@ -45,8 +45,11 @@ export function FavoritesList({ favorites }: { favorites: FavoriteTeam[] }) {
               ) : null}
             </div>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <Link href={`/teams/${team.id}`} className="btn btn-primary rounded-full px-5">
+            <div className="mt-5 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+              <Link
+                href={`/teams/${team.id}`}
+                className="btn btn-primary w-full rounded-full px-5 sm:w-auto"
+              >
                 Open analytics
               </Link>
               <p className="text-sm leading-6 text-base-content/64">

@@ -101,7 +101,7 @@ export default function LandingPage() {
                       A quick read on recent performances, with enough detail to make the view useful.
                     </p>
                   </div>
-                  <div className="inline-flex shrink-0 flex-nowrap items-center gap-1 rounded-full border border-primary/25 bg-primary/8 px-3 py-2 text-xs font-medium tracking-[0.2em] text-primary">
+                  <div className="inline-flex shrink-0 flex-nowrap items-center gap-1 rounded-full border border-primary/25 bg-primary/8 px-2.5 py-2 text-[11px] font-medium tracking-[0.18em] text-primary sm:px-3 sm:text-xs sm:tracking-[0.2em]">
                     <span>W</span>
                     <span>W</span>
                     <span>D</span>

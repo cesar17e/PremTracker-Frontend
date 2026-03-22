@@ -46,7 +46,7 @@ export function VerificationBanner({
         <button
           type="button"
           disabled={verifyPending}
-          className="btn btn-primary rounded-full px-5"
+          className="btn btn-primary w-full rounded-full px-5 sm:w-auto"
           onClick={() => void onResend()}
         >
           {verifyPending ? "Sending..." : "Resend verification"}

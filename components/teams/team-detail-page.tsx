@@ -746,7 +746,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
         />
       ) : null}
 
-      <div className="flex flex-wrap gap-2">
+      <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {[
           ["overview", "Overview"],
           ["matches", "Matches"],
@@ -757,7 +757,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
           <button
             key={tab}
             type="button"
-            className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition ${
+            className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition ${
               activeTab === tab
                 ? "bg-primary text-primary-content"
                 : "border border-base-content/10 bg-base-content/[0.04] text-base-content/72"
@@ -826,12 +826,12 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                 Recent matches and fixtures
               </h2>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {(["all", "results", "fixtures"] as MatchType[]).map((type) => (
                 <button
                   key={type}
                   type="button"
-                  className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium ${
+                  className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium ${
                     matchesType === type
                       ? "bg-primary text-primary-content"
                       : "border border-base-content/10 bg-base-content/[0.04] text-base-content/72"
@@ -908,12 +908,12 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                 Explainable recent form
               </h2>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {[5, 10, 20].map((option) => (
                 <button
                   key={option}
                   type="button"
-                  className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium ${
+                  className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium ${
                     formMatches === option
                       ? "bg-primary text-primary-content"
                       : "border border-base-content/10 bg-base-content/[0.04] text-base-content/72"
@@ -1417,12 +1417,12 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                 Upcoming run strength
               </h2>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               {[3, 5].map((option) => (
                 <button
                   key={option}
                   type="button"
-                  className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium ${
+                  className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium ${
                     fixturesCount === option
                       ? "bg-primary text-primary-content"
                       : "border border-base-content/10 bg-base-content/[0.04] text-base-content/72"
@@ -1459,7 +1459,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
             </div>
 
             <div className="rounded-[1.35rem] border border-base-content/10 bg-base-content/[0.04] p-4">
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="text-[0.68rem] font-medium uppercase tracking-[0.16em] text-[color:var(--subtle-text)]">
                     Alpha tuning
@@ -1502,7 +1502,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                 aria-label="Difficulty alpha"
               />
 
-              <div className="mt-2 flex items-center justify-between text-xs uppercase tracking-[0.14em] text-base-content/48">
+              <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-xs uppercase tracking-[0.14em] text-base-content/48">
                 <span>Long-term strength</span>
                 <span>Default 0.4</span>
                 <span>Recent momentum</span>
@@ -1602,7 +1602,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                               {getFixtureQuickTakeaway(item, difficultyState.data!.params)}
                             </p>
                           </div>
-                          <div className="flex items-center gap-3">
+                          <div className="flex flex-wrap items-center gap-3">
                             <span className={`rounded-full px-3 py-1 text-sm font-semibold ${getDifficultyTone(item.fixtureLabel)}`}>
                               {item.fixtureLabel}
                             </span>
@@ -1613,7 +1613,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                         </div>
 
                         <details className="group mt-4 rounded-[1.15rem] border border-base-content/10 bg-base-content/[0.03]">
-                          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 [&::-webkit-details-marker]:hidden">
+                          <summary className="flex cursor-pointer list-none flex-col items-start gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between [&::-webkit-details-marker]:hidden">
                             <div>
                               <p className="text-sm font-semibold text-base-content">
                                 View breakdown
