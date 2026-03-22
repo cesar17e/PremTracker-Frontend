@@ -353,7 +353,7 @@ This is important to me because good technical systems should not become inacces
 
 ### Teams Home Page
 <p align="center">
-  <img src="./docs/teams.png" width="65%" />
+  <img src="./docs/teams.png" width="50%" />
 </p>
 
 ---
@@ -363,11 +363,10 @@ This is important to me because good technical systems should not become inacces
 <div align="center">
   <img src="./docs/form-overview.png" height="260" />
   <img src="./docs/form-model.png" height="260" />
+  <img src="./docs/form-result.png" height="260" />
 </div>
 
-<p align="center">
-  <img src="./docs/form-result.png" width="55%" />
-</p>
+
 
 **Overview**
 - Top Left: Match sequence and form snapshot (Liverpool example)  
