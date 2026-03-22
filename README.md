@@ -353,7 +353,7 @@ This is important to me because good technical systems should not become inacces
 
 ### Teams Home Page
 <p align="center">
-  <img src="./docs/teams.png" width="85%" />
+  <img src="./docs/teams.png" width="65%" />
 </p>
 
 ---
@@ -361,55 +361,46 @@ This is important to me because good technical systems should not become inacces
 ### Form Analysis (Explainable Model)
 
 <p align="center">
-  <img src="./docs/form-overview.png" width="85%" />
+  <img src="./docs/form-result.png" width="65%" />
 </p>
 
-<p align="center">
-  <img src="./docs/form-model.png" width="85%" />
-</p>
+<div align="center">
+  <img src="./docs/form-overview.png" height="260" />
+  <img src="./docs/form-model.png" height="260" />
+</div>
 
-<p align="center">
-  <img src="./docs/form-result.png" width="85%" />
-</p>
-
-- Team-level form snapshot with real match sequence (Liverpool example)  
-- Core model definitions (PPG, deltaPPG, rolling windows)  
-- Final explainable result with reasoning behind the rating  
+**Overview**
+- Main: Final explainable form rating with reasoning (Liverpool example)  
+- Bottom Left: Match sequence and form snapshot  
+- Bottom Right: Core model definitions (PPG, ΔPPG, rolling windows)  
 
 ---
 
 ### Trends Analysis (Rolling Performance)
 
-<p align="center">
-  <img src="./docs/trends-overview.png" width="85%" />
-</p>
+<div align="center">
+  <img src="./docs/trends-overview.png" height="260" />
+  <img src="./docs/trends-explanation.png" height="260" />
+</div>
 
-<p align="center">
-  <img src="./docs/trends-explanation.png" width="85%" />
-</p>
-
-- Recent match sequence and trend snapshot (Tottenham example)  
-- Explainable model output showing why form is trending downward  
+**Overview**
+- Left: Recent match sequence and trend snapshot (Tottenham example)  
+- Right: Explainable model output showing why performance is trending downward  
 
 ---
 
 ### Fixture Difficulty (Explainable Model + Controls)
 
-<p align="center">
-  <img src="./docs/fixtures-overview.png" width="85%" />
-</p>
+<div align="center">
+  <img src="./docs/fixtures-overview.png" height="260" />
+  <img src="./docs/fixtures-breakdown.png" height="260" />
+  <img src="./docs/fixtures-model.png" height="260" />
+</div>
 
-<p align="center">
-  <img src="./docs/fixtures-breakdown.png" width="85%" />
-</p>
-
-<p align="center">
-  <img src="./docs/fixtures-model.png" width="85%" />
-</p>
-
-- Interactive model with alpha tuning and run selection (Arsenal example)  
-- Per-fixture breakdown showing how difficulty is computed  
-- Core mathematical model and variables behind the system  
+**Overview**
+- Left: Interactive model with tuning controls (Arsenal example)  
+- Middle: Per-fixture difficulty breakdown  
+- Right: Core mathematical model and variables  
 
 ---
 
