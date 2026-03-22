@@ -72,8 +72,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
             <div className="mt-auto rounded-[1.45rem] border border-base-content/10 bg-base-content/[0.04] p-4">
               <p className="text-sm leading-6 text-base-content/68">
-                Core account flow is live. Team browsing, saved clubs, and settings screens build on
-                this shell next.
+                Core account flow, saved clubs, and reminder settings now sit inside this shell.
               </p>
               <button
                 type="button"

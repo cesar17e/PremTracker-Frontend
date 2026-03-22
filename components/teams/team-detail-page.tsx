@@ -7,6 +7,7 @@ import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { ModelDetails } from "@/components/ui/model-details";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { MatchCard } from "@/components/teams/match-card";
+import { FavoriteButton } from "@/components/teams/favorite-button";
 import { TeamCrest } from "@/components/teams/team-crest";
 import {
   getTrendStatusFromSeries,
@@ -14,6 +15,7 @@ import {
 } from "@/components/teams/trend-series-card";
 import { formatDateTime } from "@/lib/format/dates";
 import { isAppApiError } from "@/lib/api/errors";
+import { useFavorites } from "@/hooks/use-favorites";
 import {
   getTeamFixtureDifficulty,
   getTeamForm,
@@ -362,6 +364,7 @@ function TeamDetailLoading() {
 }
 
 export function TeamDetailPage({ teamId }: { teamId: number }) {
+  const { errorMessage: favoritesError } = useFavorites();
   const [activeTab, setActiveTab] = useState<DetailTab>("overview");
   const [matchesType, setMatchesType] = useState<MatchType>("all");
   const [matchesLimit, setMatchesLimit] = useState(MATCHES_PAGE_SIZE);
@@ -685,6 +688,21 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
               <p className="mt-2 text-sm leading-6 text-base-content/72">
                 {getTeamMetaLine(displayTeam)}
               </p>
+              <div className="mt-4">
+                <FavoriteButton
+                  team={{
+                    id: displayTeam.id,
+                    externalTeamId: displayTeam.externalTeamId,
+                    name: displayTeam.name,
+                    shortName: displayTeam.shortName,
+                    symbolicName: displayTeam.symbolicName,
+                    logoUrl: displayTeam.logoUrl,
+                    color: displayTeam.color,
+                    awayColor: displayTeam.awayColor,
+                    imageVersion: displayTeam.imageVersion,
+                  }}
+                />
+              </div>
             </div>
           </div>
 
@@ -719,6 +737,14 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
           </div>
         </div>
       </section>
+
+      {favoritesError ? (
+        <StatusAlert
+          variant="warning"
+          title="Favorites are temporarily unavailable"
+          description={favoritesError}
+        />
+      ) : null}
 
       <div className="flex flex-wrap gap-2">
         {[

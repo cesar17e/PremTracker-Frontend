@@ -5,6 +5,7 @@ import { StatusAlert } from "@/components/ui/status-alert";
 import { EmptyState } from "@/components/ui/empty-state";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { TeamCard } from "@/components/teams/team-card";
+import { useFavorites } from "@/hooks/use-favorites";
 import { isAppApiError } from "@/lib/api/errors";
 import { getTeams } from "@/lib/api/teams";
 import type { TeamListItem } from "@/types/teams";
@@ -47,6 +48,7 @@ function TeamGridSkeleton() {
 }
 
 export function TeamsWorkspace() {
+  const { errorMessage: favoritesError } = useFavorites();
   const [teams, setTeams] = useState<TeamListItem[]>([]);
   const [loadState, setLoadState] = useState<LoadState>("loading");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -109,6 +111,9 @@ export function TeamsWorkspace() {
                 Select a club to unlock its full analytics dashboard — including recent form,
                 upcoming fixtures, and performance trends.
             </p>
+            <p className="font-bold mt-3 text-sm leading-6 text-base-content/70">
+                Select save to add a club to your favorites, making it easy to find and track your preferred teams across the app.
+            </p>
           </div>
 
           <div className="w-full max-w-md">
@@ -138,6 +143,14 @@ export function TeamsWorkspace() {
           ) : null}
         </div>
       </section>
+
+      {favoritesError ? (
+        <StatusAlert
+          variant="warning"
+          title="Favorites are temporarily unavailable"
+          description={favoritesError}
+        />
+      ) : null}
 
       {loadState === "loading" ? <TeamGridSkeleton /> : null}
 
