@@ -278,6 +278,57 @@ It is an API-driven architecture built around explainable systems rather than hi
 
 ---
 
+## File Structure
+
+The repository is organized to keep routing, UI, and API concerns separate and readable.
+
+```txt
+premtracker-frontend/
+├── app/
+│   ├── (public)/              # landing, login, register, recovery flows
+│   ├── (app)/                 # authenticated dashboard routes
+│   ├── _providers/            # app-wide client providers
+│   ├── error.tsx              # global error boundary
+│   ├── not-found.tsx          # global 404 state
+│   ├── layout.tsx             # root layout + metadata
+│   └── globals.css            # design tokens + global theme styles
+├── components/
+│   ├── admin/                 # admin sync UI
+│   ├── auth/                  # auth and recovery forms/cards
+│   ├── layout/                # public header, app shell, containers
+│   ├── settings/              # verification, reminders, email settings
+│   ├── states/                # empty, forbidden, error, loading helpers
+│   ├── teams/                 # team cards, detail views, analytics UI
+│   ├── theme/                 # dark/light theme toggle
+│   └── ui/                    # shared primitives like alerts and pending links
+├── hooks/
+│   ├── use-auth.ts
+│   ├── use-favorites.ts
+│   └── use-settings.ts
+├── lib/
+│   ├── api/                   # typed API clients by backend domain
+│   ├── auth/                  # session restore and recovery helpers
+│   ├── favorites/             # favorites provider/state
+│   ├── format/                # date/formatting helpers
+│   ├── teams/                 # analytics presentation helpers
+│   └── utils/                 # env and shared utility functions
+├── public/                    # static assets
+├── types/                     # shared frontend TypeScript models
+└── README.md
+```
+
+### Structure Rationale
+
+- `app/` keeps route definitions and top-level layout concerns in one place.
+- `components/` holds reusable UI grouped by product domain rather than by route.
+- `lib/api/` mirrors backend domains so frontend/backend integration is easy to trace.
+- `types/` makes backend response shapes explicit and readable.
+- `hooks/` keeps page components thinner by moving stateful feature logic into focused client hooks.
+
+This structure supports the main architectural goal of the project: keeping analytics logic understandable not only for users, but also for engineers reading the codebase.
+
+---
+
 ## UX Design Highlights
 
 A major part of the technical work in this repository is **not just rendering data**, but designing interfaces that make analytics readable.
@@ -301,47 +352,64 @@ This is important to me because good technical systems should not become inacces
 ## Screenshots
 
 ### Teams Home Page
-![List of Teams](./docs/teams.png)
+<p align="center">
+  <img src="./docs/teams.png" width="85%" />
+</p>
 
 ---
 
 ### Form Analysis (Explainable Model)
 
-<div align="center">
-  <img src="./docs/form-overview.png" width="32%" style="margin-right:1%;" />
-  <img src="./docs/form-model.png" width="32%" style="margin-right:1%;" />
-  <img src="./docs/form-result.png" width="32%" />
-</div>
+<p align="center">
+  <img src="./docs/form-overview.png" width="85%" />
+</p>
 
-- Left: Team-level form snapshot with real match sequence (Liverpool example)  
-- Middle: Core model definitions (PPG, deltaPPG, rolling windows)  
-- Right: Final explainable result with reasoning behind the rating  
+<p align="center">
+  <img src="./docs/form-model.png" width="85%" />
+</p>
+
+<p align="center">
+  <img src="./docs/form-result.png" width="85%" />
+</p>
+
+- Team-level form snapshot with real match sequence (Liverpool example)  
+- Core model definitions (PPG, deltaPPG, rolling windows)  
+- Final explainable result with reasoning behind the rating  
 
 ---
 
 ### Trends Analysis (Rolling Performance)
 
-<div align="center">
-  <img src="./docs/trends-overview.png" width="48%" style="margin-right:2%;" />
-  <img src="./docs/trends-explanation.png" width="48%" />
-</div>
+<p align="center">
+  <img src="./docs/trends-overview.png" width="85%" />
+</p>
 
-- Left: Recent match sequence and trend snapshot (Tottenham example)  
-- Right: Explainable model output showing why form is trending downward  
+<p align="center">
+  <img src="./docs/trends-explanation.png" width="85%" />
+</p>
+
+- Recent match sequence and trend snapshot (Tottenham example)  
+- Explainable model output showing why form is trending downward  
 
 ---
 
 ### Fixture Difficulty (Explainable Model + Controls)
 
-<div align="center">
-  <img src="./docs/fixtures-overview.png" width="32%" style="margin-right:1%;" />
-  <img src="./docs/fixtures-breakdown.png" width="32%" style="margin-right:1%;" />
-  <img src="./docs/fixtures-model.png" width="32%" />
-</div>
+<p align="center">
+  <img src="./docs/fixtures-overview.png" width="85%" />
+</p>
 
-- Left: Interactive model with alpha tuning and run selection (Arsenal example)  
-- Middle: Per-fixture breakdown showing how difficulty is computed  
-- Right: Core mathematical model and variables behind the system  
+<p align="center">
+  <img src="./docs/fixtures-breakdown.png" width="85%" />
+</p>
+
+<p align="center">
+  <img src="./docs/fixtures-model.png" width="85%" />
+</p>
+
+- Interactive model with alpha tuning and run selection (Arsenal example)  
+- Per-fixture breakdown showing how difficulty is computed  
+- Core mathematical model and variables behind the system  
 
 ---
 
