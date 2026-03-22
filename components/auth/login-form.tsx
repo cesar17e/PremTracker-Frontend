@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { AuthCard } from "@/components/auth/auth-card";
+import { PendingLink } from "@/components/ui/pending-link";
 import { useAuth } from "@/hooks/use-auth";
 import { getActionErrorMessage } from "@/lib/api/errors";
 
@@ -57,9 +58,14 @@ export function LoginForm() {
           title="Redirecting to your dashboard"
           description="If this takes a moment, use the button below."
           actions={
-            <Link href={nextPath} className="btn btn-primary rounded-full px-5">
+            <PendingLink
+              href={nextPath}
+              replace
+              pendingLabel="Opening..."
+              className="btn btn-primary rounded-full px-5"
+            >
               Open dashboard
-            </Link>
+            </PendingLink>
           }
         />
       </AuthCard>

@@ -7,6 +7,7 @@ import { AuthCard } from "@/components/auth/auth-card";
 import { PasswordResetSuccessNotice } from "@/components/auth/password-reset-success-notice";
 import { VerificationResultCard } from "@/components/auth/verification-result-card";
 import { StatusAlert } from "@/components/ui/status-alert";
+import { PendingLink } from "@/components/ui/pending-link";
 import { resetPasswordRequest } from "@/lib/api/auth";
 import { parseResetTokenFromSearchParams } from "@/lib/auth/recovery";
 import { getActionErrorMessage } from "@/lib/api/errors";
@@ -95,9 +96,9 @@ export function ResetPasswordForm() {
         title="Reset link unavailable"
         description={prepareState.error}
         actions={
-          <Link href="/forgot-password" className="btn btn-primary rounded-full px-5">
+          <PendingLink href="/forgot-password" pendingLabel="Opening..." className="btn btn-primary rounded-full px-5">
             Request a new link
-          </Link>
+          </PendingLink>
         }
         footerLinkHref="/login"
         footerLinkLabel="Back to login"

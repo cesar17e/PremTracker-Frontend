@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { VerificationResultCard } from "@/components/auth/verification-result-card";
+import { PendingLink } from "@/components/ui/pending-link";
 import { verifyEmailTokenRequest } from "@/lib/api/auth";
 import { parseVerifyPageState } from "@/lib/auth/recovery";
 import { isAppApiError } from "@/lib/api/errors";
@@ -79,13 +79,13 @@ export function VerifyEmailResult() {
         description={pageState.message}
         actions={
           pageState.status === "success" ? (
-            <Link href="/login" className="btn btn-primary rounded-full px-5">
+            <PendingLink href="/login" pendingLabel="Opening..." className="btn btn-primary rounded-full px-5">
               Continue to login
-            </Link>
+            </PendingLink>
           ) : (
-            <Link href="/login" className="btn btn-primary rounded-full px-5">
+            <PendingLink href="/login" pendingLabel="Opening..." className="btn btn-primary rounded-full px-5">
               Back to login
-            </Link>
+            </PendingLink>
           )
         }
         footerLinkHref={pageState.status === "success" ? "/login" : "/register"}
@@ -103,9 +103,9 @@ export function VerifyEmailResult() {
         title="Email verification failed"
         description="Missing verification token. Open this page from your email verification link."
         actions={
-          <Link href="/login" className="btn btn-primary rounded-full px-5">
+          <PendingLink href="/login" pendingLabel="Opening..." className="btn btn-primary rounded-full px-5">
             Back to login
-          </Link>
+          </PendingLink>
         }
         footerLinkHref="/register"
         footerLinkLabel="Create a new account"
@@ -134,13 +134,13 @@ export function VerifyEmailResult() {
       description={state.message}
       actions={
         state.status === "success" ? (
-          <Link href="/login" className="btn btn-primary rounded-full px-5">
+          <PendingLink href="/login" pendingLabel="Opening..." className="btn btn-primary rounded-full px-5">
             Continue to login
-          </Link>
+          </PendingLink>
         ) : (
-          <Link href="/login" className="btn btn-primary rounded-full px-5">
+          <PendingLink href="/login" pendingLabel="Opening..." className="btn btn-primary rounded-full px-5">
             Back to login
-          </Link>
+          </PendingLink>
         )
       }
       footerLinkHref={state.status === "success" ? "/login" : "/register"}

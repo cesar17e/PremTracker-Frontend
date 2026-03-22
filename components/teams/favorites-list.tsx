@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { FavoriteButton } from "@/components/teams/favorite-button";
 import { TeamCrest } from "@/components/teams/team-crest";
+import { PendingLink } from "@/components/ui/pending-link";
 import { formatMatchDate } from "@/lib/format/dates";
 import { getTeamAccentColor } from "@/lib/teams/presentation";
 import type { FavoriteTeam } from "@/types/me";
@@ -46,12 +46,13 @@ export function FavoritesList({ favorites }: { favorites: FavoriteTeam[] }) {
             </div>
 
             <div className="mt-5 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <Link
+              <PendingLink
                 href={`/teams/${team.id}`}
+                pendingLabel="Opening..."
                 className="btn btn-primary w-full rounded-full px-5 sm:w-auto"
               >
                 Open analytics
-              </Link>
+              </PendingLink>
               <p className="text-sm leading-6 text-base-content/64">
                 Keep this club handy for quick access and reminder emails.
               </p>

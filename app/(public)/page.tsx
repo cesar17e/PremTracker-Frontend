@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageContainer } from "@/components/layout/page-container";
+import { PendingLink } from "@/components/ui/pending-link";
 
 export const metadata: Metadata = {
   title: "Track Premier League clubs",
@@ -47,12 +47,20 @@ export default function LandingPage() {
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link href="/register" className="btn btn-primary rounded-full px-6">
+            <PendingLink
+              href="/register"
+              pendingLabel="Opening..."
+              className="btn btn-primary rounded-full px-6"
+            >
               Create account
-            </Link>
-            <Link href="/login" className="btn btn-ghost rounded-full border border-base-content/10 px-6 text-base-content/80">
+            </PendingLink>
+            <PendingLink
+              href="/login"
+              pendingLabel="Opening..."
+              className="btn btn-ghost rounded-full border border-base-content/10 px-6 text-base-content/80"
+            >
               Log in
-            </Link>
+            </PendingLink>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">

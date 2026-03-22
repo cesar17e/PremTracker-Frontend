@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { PendingLink } from "@/components/ui/pending-link";
 import { useAuth } from "@/hooks/use-auth";
 
 const baseNavItems = [
@@ -75,7 +76,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
             <nav className="flex gap-2 overflow-x-auto pb-1 lg:block lg:space-y-1.5 lg:overflow-visible lg:pb-0">
               {navItems.map((item) => (
-                <Link
+                <PendingLink
                   key={item.href}
                   href={item.href}
                   className={`flex min-w-fit items-center justify-between rounded-[1.2rem] px-4 py-2.5 text-sm font-medium transition hover:bg-base-100/80 hover:text-base-content lg:min-w-0 ${
@@ -85,7 +86,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   }`}
                 >
                   <span>{item.label}</span>
-                </Link>
+                </PendingLink>
               ))}
             </nav>
 

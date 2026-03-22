@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageContainer } from "@/components/layout/page-container";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
+import { PendingLink } from "@/components/ui/pending-link";
 
 const navItems = [
   { href: "/login", label: "Log in" },
@@ -32,9 +33,10 @@ export function PublicHeader() {
           <nav className="flex w-full flex-wrap items-center justify-end gap-2 sm:w-auto sm:flex-nowrap">
             <ThemeToggle compact />
             {navItems.map((item) => (
-              <Link
+              <PendingLink
                 key={item.href}
                 href={item.href}
+                pendingLabel={item.label === "Create account" ? "Opening..." : "Opening..."}
                 className={
                   item.href === "/register"
                     ? "btn btn-primary min-h-10 rounded-full px-4 text-sm sm:px-5"
@@ -42,7 +44,7 @@ export function PublicHeader() {
                 }
               >
                 {item.label}
-              </Link>
+              </PendingLink>
             ))}
           </nav>
         </div>

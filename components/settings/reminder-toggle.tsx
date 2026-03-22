@@ -30,7 +30,7 @@ export function ReminderToggle({
 
         <label className="flex items-center gap-3">
           <span className="text-sm font-medium text-base-content/72">
-            {checked ? "Enabled" : "Disabled"}
+            {pending ? "Updating..." : checked ? "Enabled" : "Disabled"}
           </span>
           <input
             type="checkbox"
