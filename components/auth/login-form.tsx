@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { AuthCard } from "@/components/auth/auth-card";
 import { useAuth } from "@/hooks/use-auth";
-import { isAppApiError } from "@/lib/api/errors";
+import { getActionErrorMessage } from "@/lib/api/errors";
 
 function getSafeNextPath(nextPath: string | null) {
   if (nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//")) {
@@ -85,11 +85,7 @@ export function LoginForm() {
       });
       router.replace(nextPath);
     } catch (error) {
-      setErrorMessage(
-        isAppApiError(error)
-          ? error.message
-          : "We couldn't log you in. Please try again."
-      );
+      setErrorMessage(getActionErrorMessage(error, "We couldn't log you in. Please try again."));
     } finally {
       setPending(false);
     }

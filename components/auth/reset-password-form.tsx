@@ -12,7 +12,7 @@ import {
   resetPasswordRequest,
 } from "@/lib/api/auth";
 import { parseResetTokenFromSearchParams } from "@/lib/auth/recovery";
-import { isAppApiError } from "@/lib/api/errors";
+import { getActionErrorMessage, isAppApiError } from "@/lib/api/errors";
 
 type PrepareState =
   | { status: "loading"; token: string | null; error: string | null }
@@ -130,9 +130,7 @@ export function ResetPasswordForm() {
       setSuccess(true);
     } catch (error) {
       setErrorMessage(
-        isAppApiError(error)
-          ? error.message
-          : "We couldn't reset your password. Please try again."
+        getActionErrorMessage(error, "We couldn't reset your password. Please try again.")
       );
     } finally {
       setPending(false);

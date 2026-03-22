@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { AuthCard } from "@/components/auth/auth-card";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { useAuth } from "@/hooks/use-auth";
-import { isAppApiError } from "@/lib/api/errors";
+import { getActionErrorMessage } from "@/lib/api/errors";
 
 function getSafeNextPath(nextPath: string | null) {
   if (nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//")) {
@@ -97,9 +97,7 @@ export function RegisterForm() {
       router.replace(nextPath);
     } catch (error) {
       setErrorMessage(
-        isAppApiError(error)
-          ? error.message
-          : "We couldn't create your account. Please try again."
+        getActionErrorMessage(error, "We couldn't create your account. Please try again.")
       );
     } finally {
       setPending(false);

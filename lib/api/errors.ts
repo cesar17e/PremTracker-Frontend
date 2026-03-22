@@ -16,6 +16,25 @@ export function isAppApiError(value: unknown): value is AppApiError {
   );
 }
 
+export function getActionErrorMessage(
+  error: unknown,
+  fallback = "Something went wrong."
+) {
+  if (isAppApiError(error)) {
+    if (error.status === 503) {
+      return "This service is temporarily unavailable. Please try again shortly.";
+    }
+
+    return error.message;
+  }
+
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  return fallback;
+}
+
 export function extractApiError(
   payload: unknown,
   fallback = "Something went wrong."

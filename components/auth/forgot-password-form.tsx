@@ -5,7 +5,7 @@ import { useState } from "react";
 import { AuthCard } from "@/components/auth/auth-card";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { forgotPasswordRequest } from "@/lib/api/auth";
-import { isAppApiError } from "@/lib/api/errors";
+import { getActionErrorMessage } from "@/lib/api/errors";
 
 export function ForgotPasswordForm() {
   const [pending, setPending] = useState(false);
@@ -29,9 +29,7 @@ export function ForgotPasswordForm() {
       setSuccessMessage(response.message);
     } catch (error) {
       setErrorMessage(
-        isAppApiError(error)
-          ? error.message
-          : "We couldn't submit the password reset request."
+        getActionErrorMessage(error, "We couldn't submit the password reset request.")
       );
     } finally {
       setPending(false);

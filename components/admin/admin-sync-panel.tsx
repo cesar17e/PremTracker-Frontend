@@ -13,7 +13,11 @@ type SyncState =
   | { status: "idle" }
   | { status: "pending" }
   | { status: "success"; data: AdminSyncResponse }
-  | { status: "error"; message: string; code: "sunday" | "admin" | "rate-limit" | "generic" };
+  | {
+      status: "error";
+      message: string;
+      code: "sunday" | "admin" | "rate-limit" | "unavailable" | "generic";
+    };
 
 function getRunLabel(count: number) {
   if (count >= 5) return "Heavy refresh";
@@ -54,6 +58,15 @@ function getErrorState(error: unknown): Extract<SyncState, { status: "error" }> 
         status: "error",
         message,
         code: "admin",
+      };
+    }
+
+    if (error.status === 503) {
+      return {
+        status: "error",
+        message:
+          "This sync is temporarily unavailable while the backend protection layer is unavailable. Please try again shortly.",
+        code: "unavailable",
       };
     }
 
@@ -174,6 +187,14 @@ export function AdminSyncPanel() {
           variant="warning"
           title="Sync is only available on Sunday"
           description="The backend rejected this run because the current day is outside the allowed sync window."
+        />
+      ) : null}
+
+      {syncState.status === "error" && syncState.code === "unavailable" ? (
+        <StatusAlert
+          variant="warning"
+          title="Sync temporarily unavailable"
+          description={syncState.message}
         />
       ) : null}
 
