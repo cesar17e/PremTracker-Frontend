@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { AuthPageShell } from "@/components/auth/auth-page-shell";
 import { ForgotPasswordForm } from "@/components/auth/forgot-password-form";
+
+export const metadata: Metadata = {
+  title: "Forgot password",
+  description: "Start the PremTracker password reset flow.",
+};
 
 const highlights = [
   {

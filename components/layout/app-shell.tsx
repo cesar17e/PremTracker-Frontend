@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { useMemo, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { useAuth } from "@/hooks/use-auth";
 
-const navItems = [
+const baseNavItems = [
   { href: "/teams", label: "Teams" },
   { href: "/favorites", label: "Favorites" },
   { href: "/settings", label: "Settings" },
@@ -16,6 +16,17 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const { logout, user, status } = useAuth();
+  const navItems = useMemo(
+    () =>
+      user?.isAdmin
+        ? [...baseNavItems, { href: "/admin/sync", label: "Admin" }]
+        : baseNavItems,
+    [user?.isAdmin]
+  );
+
+  function isActivePath(href: string) {
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
 
   return (
     <div className="min-h-screen">
@@ -51,6 +62,11 @@ export function AppShell({ children }: { children: ReactNode }) {
                     {user.emailVerified ? "Email verified" : "Verification pending"}
                   </span>
                 ) : null}
+                {user?.isAdmin ? (
+                  <span className="badge badge-outline rounded-full border-primary/20 text-primary">
+                    Admin
+                  </span>
+                ) : null}
               </div>
             </div>
 
@@ -60,7 +76,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   key={item.href}
                   href={item.href}
                   className={`flex min-w-fit items-center justify-between rounded-[1.2rem] px-4 py-2.5 text-sm font-medium transition hover:bg-base-100/80 hover:text-base-content lg:min-w-0 ${
-                    pathname === item.href
+                    isActivePath(item.href)
                       ? "bg-base-content/[0.08] text-base-content"
                       : "text-base-content/72"
                   }`}

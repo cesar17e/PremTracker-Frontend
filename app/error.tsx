@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
-import { StatusAlert } from "@/components/ui/status-alert";
+import { GlobalErrorState } from "@/components/states/global-error-state";
 import { PageContainer } from "@/components/layout/page-container";
 
 export default function GlobalError({
   error,
   reset,
+  unstable_retry,
 }: {
   error: Error & { digest?: string };
   reset: () => void;
+  unstable_retry?: () => void;
 }) {
   useEffect(() => {
     console.error(error);
@@ -17,16 +19,18 @@ export default function GlobalError({
 
   return (
     <PageContainer className="min-h-screen items-center justify-center py-20">
-      <div className="max-w-xl space-y-6">
-        <StatusAlert
-          variant="error"
-          title="The frontend hit an unexpected error"
-          description="Phase 1 adds the global error boundary now so later API work has a consistent failure surface."
-        />
-        <button type="button" className="btn btn-primary rounded-full px-6" onClick={reset}>
-          Try again
-        </button>
-      </div>
+      <GlobalErrorState
+        description="Something unexpected interrupted this screen. Try reloading the route, or head back into the main dashboard if the issue continues."
+        digest={error.digest}
+        onRetry={() => {
+          if (unstable_retry) {
+            unstable_retry();
+            return;
+          }
+
+          reset();
+        }}
+      />
     </PageContainer>
   );
 }

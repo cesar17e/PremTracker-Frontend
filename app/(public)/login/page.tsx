@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AuthPageShell } from "@/components/auth/auth-page-shell";
 import { AuthCard } from "@/components/auth/auth-card";
 import { LoginForm } from "@/components/auth/login-form";
+
+export const metadata: Metadata = {
+  title: "Log in",
+  description: "Sign in to PremTracker and return to your saved clubs and analytics.",
+};
 
 const highlights = [
   {

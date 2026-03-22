@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PageContainer } from "@/components/layout/page-container";
+
+export const metadata: Metadata = {
+  title: "Track Premier League clubs",
+  description:
+    "Track your favorite Premier League clubs with analytics you can actually understand.",
+};
 
 const productCards = [
   {

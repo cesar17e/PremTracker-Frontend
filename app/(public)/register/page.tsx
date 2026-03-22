@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AuthPageShell } from "@/components/auth/auth-page-shell";
 import { AuthCard } from "@/components/auth/auth-card";
 import { RegisterForm } from "@/components/auth/register-form";
+
+export const metadata: Metadata = {
+  title: "Create account",
+  description: "Create a PremTracker account to follow clubs, form, fixtures, and trends.",
+};
 
 const highlights = [
   {

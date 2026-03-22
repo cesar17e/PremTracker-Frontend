@@ -10,6 +10,31 @@ export const metadata: Metadata = {
   description:
     "Premier League analytics frontend for browsing team form, fixtures, and explainable trends.",
   applicationName: "PremTracker",
+  keywords: [
+    "Premier League analytics",
+    "football dashboard",
+    "EPL fixtures",
+    "team form",
+    "explainable sports analytics",
+  ],
+  openGraph: {
+    title: "PremTracker",
+    description:
+      "Track your favorite Premier League clubs with analytics you can actually understand.",
+    siteName: "PremTracker",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "PremTracker",
+    description:
+      "Track your favorite Premier League clubs with analytics you can actually understand.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  category: "sports analytics",
 };
 
 const themeInitScript = `

@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AuthCard } from "@/components/auth/auth-card";
 import { AuthPageShell } from "@/components/auth/auth-page-shell";
 import { VerifyEmailResult } from "@/components/auth/verify-email-result";
+
+export const metadata: Metadata = {
+  title: "Verify email",
+  description: "Confirm your email verification result for PremTracker.",
+};
 
 const highlights = [
   {
