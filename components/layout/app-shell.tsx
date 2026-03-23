@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, type ReactNode } from "react";
+import { useMemo, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { usePathname, useRouter } from "next/navigation";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { PendingLink } from "@/components/ui/pending-link";
@@ -17,6 +18,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const { logout, user, status } = useAuth();
+  const [logoutPending, setLogoutPending] = useState(false);
   const navItems = useMemo(
     () =>
       user?.isAdmin
@@ -96,13 +98,31 @@ export function AppShell({ children }: { children: ReactNode }) {
               </p>
               <button
                 type="button"
-                className="btn btn-ghost mt-3 w-full rounded-full border border-base-content/10"
+                className="btn btn-ghost mt-3 w-full rounded-full border border-base-content/10 disabled:cursor-wait"
+                disabled={logoutPending}
+                aria-busy={logoutPending}
                 onClick={async () => {
-                  await logout();
-                  router.replace("/login");
+                  flushSync(() => setLogoutPending(true));
+
+                  try {
+                    await logout();
+                    router.replace("/login");
+                  } finally {
+                    setLogoutPending(false);
+                  }
                 }}
               >
-                Log out
+                {logoutPending ? (
+                  <>
+                    <span
+                      className="loading loading-spinner loading-xs"
+                      aria-hidden="true"
+                    />
+                    <span>Signing out...</span>
+                  </>
+                ) : (
+                  "Log out"
+                )}
               </button>
             </div>
           </div>

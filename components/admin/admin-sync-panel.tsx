@@ -162,11 +162,19 @@ export function AdminSyncPanel() {
             </p>
             <button
               type="button"
-              className="btn btn-primary mt-4 w-full rounded-full px-6"
+              className="btn btn-primary mt-4 w-full rounded-full px-6 disabled:cursor-wait"
               onClick={() => void handleRunSync()}
               disabled={syncState.status === "pending"}
+              aria-busy={syncState.status === "pending"}
             >
-              {syncState.status === "pending" ? "Running sync..." : "Run sync now"}
+              {syncState.status === "pending" ? (
+                <>
+                  <span className="loading loading-spinner loading-xs" aria-hidden="true" />
+                  <span>Running sync...</span>
+                </>
+              ) : (
+                "Run sync now"
+              )}
             </button>
             <p className="mt-3 text-sm leading-6 text-base-content/60">
               Use this carefully. The backend enforces access rules even if this page is visible.

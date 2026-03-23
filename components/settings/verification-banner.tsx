@@ -46,10 +46,18 @@ export function VerificationBanner({
         <button
           type="button"
           disabled={verifyPending}
-          className="btn btn-primary w-full rounded-full px-5 sm:w-auto"
+          aria-busy={verifyPending}
+          className="btn btn-primary w-full rounded-full px-5 disabled:cursor-wait sm:w-auto"
           onClick={() => void onResend()}
         >
-          {verifyPending ? "Sending..." : "Resend verification"}
+          {verifyPending ? (
+            <>
+              <span className="loading loading-spinner loading-xs" aria-hidden="true" />
+              <span>Sending...</span>
+            </>
+          ) : (
+            "Resend verification"
+          )}
         </button>
       </div>
 

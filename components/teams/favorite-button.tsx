@@ -32,6 +32,7 @@ export function FavoriteButton({
       type="button"
       disabled={pending}
       aria-pressed={favorite}
+      aria-busy={pending}
       aria-label={label}
       title={label}
       className={`cursor-pointer rounded-full border border-base-content/10 transition ${
@@ -53,7 +54,12 @@ export function FavoriteButton({
         }
       }}
     >
-      {label}
+      <span className="inline-flex items-center gap-2">
+        {pending ? (
+          <span className="loading loading-spinner loading-xs" aria-hidden="true" />
+        ) : null}
+        <span>{label}</span>
+      </span>
     </button>
   );
 }

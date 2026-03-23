@@ -29,10 +29,18 @@ export function SendFixtureEmailButton({
         <button
           type="button"
           disabled={disabled || pending}
-          className="btn btn-primary w-full rounded-full px-5 sm:w-auto"
+          aria-busy={pending}
+          className="btn btn-primary w-full rounded-full px-5 disabled:cursor-wait sm:w-auto"
           onClick={() => void onSend()}
         >
-          {pending ? "Sending..." : "Send digest now"}
+          {pending ? (
+            <>
+              <span className="loading loading-spinner loading-xs" aria-hidden="true" />
+              <span>Sending...</span>
+            </>
+          ) : (
+            "Send digest now"
+          )}
         </button>
       </div>
     </div>

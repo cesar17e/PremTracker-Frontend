@@ -29,13 +29,17 @@ export function ReminderToggle({
         </div>
 
         <label className="flex items-center gap-3">
-          <span className="text-sm font-medium text-base-content/72">
-            {pending ? "Updating..." : checked ? "Enabled" : "Disabled"}
+          <span className="inline-flex items-center gap-2 text-sm font-medium text-base-content/72">
+            {pending ? (
+              <span className="loading loading-spinner loading-xs" aria-hidden="true" />
+            ) : null}
+            <span>{pending ? "Updating..." : checked ? "Enabled" : "Disabled"}</span>
           </span>
           <input
             type="checkbox"
             className="toggle toggle-primary"
             checked={checked}
+            aria-busy={pending}
             disabled={disabled || pending}
             onChange={(event) => void onChange(event.target.checked)}
           />
