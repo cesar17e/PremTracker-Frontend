@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import { AuthCard } from "@/components/auth/auth-card";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { PendingLink } from "@/components/ui/pending-link";
@@ -92,8 +93,10 @@ export function RegisterForm() {
       return;
     }
 
-    setPending(true);
-    setErrorMessage(null);
+    flushSync(() => {
+      setPending(true);
+      setErrorMessage(null);
+    });
 
     try {
       await register({
@@ -179,9 +182,13 @@ export function RegisterForm() {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-primary h-11 w-full rounded-full px-6"
+          aria-busy={pending}
+          className="btn btn-primary h-11 w-full rounded-full px-6 disabled:cursor-wait"
         >
-          {pending ? "Creating account..." : "Create account"}
+          <span className="inline-flex items-center gap-2">
+            {pending ? <span className="loading loading-spinner loading-xs" aria-hidden="true" /> : null}
+            <span>{pending ? "Creating account..." : "Create account"}</span>
+          </span>
         </button>
       </form>
     </AuthCard>

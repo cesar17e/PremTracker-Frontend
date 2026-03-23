@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { AuthCard } from "@/components/auth/auth-card";
 import { PendingLink } from "@/components/ui/pending-link";
@@ -81,8 +82,10 @@ export function LoginForm() {
       return;
     }
 
-    setPending(true);
-    setErrorMessage(null);
+    flushSync(() => {
+      setPending(true);
+      setErrorMessage(null);
+    });
 
     try {
       await login({
@@ -157,9 +160,13 @@ export function LoginForm() {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-primary h-11 w-full rounded-full px-6"
+          aria-busy={pending}
+          className="btn btn-primary h-11 w-full rounded-full px-6 disabled:cursor-wait"
         >
-          {pending ? "Logging in..." : "Log in"}
+          <span className="inline-flex items-center gap-2">
+            {pending ? <span className="loading loading-spinner loading-xs" aria-hidden="true" /> : null}
+            <span>{pending ? "Logging in..." : "Log in"}</span>
+          </span>
         </button>
       </form>
     </AuthCard>

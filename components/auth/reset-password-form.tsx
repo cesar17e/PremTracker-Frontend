@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { flushSync } from "react-dom";
 import { AuthCard } from "@/components/auth/auth-card";
 import { PasswordResetSuccessNotice } from "@/components/auth/password-reset-success-notice";
 import { VerificationResultCard } from "@/components/auth/verification-result-card";
@@ -70,8 +71,10 @@ export function ResetPasswordForm() {
       return;
     }
 
-    setPending(true);
-    setErrorMessage(null);
+    flushSync(() => {
+      setPending(true);
+      setErrorMessage(null);
+    });
 
     try {
       await resetPasswordRequest(prepareState.token, newPassword);
@@ -162,9 +165,13 @@ export function ResetPasswordForm() {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-primary h-11 w-full rounded-full px-6"
+          aria-busy={pending}
+          className="btn btn-primary h-11 w-full rounded-full px-6 disabled:cursor-wait"
         >
-          {pending ? "Updating..." : "Reset password"}
+          <span className="inline-flex items-center gap-2">
+            {pending ? <span className="loading loading-spinner loading-xs" aria-hidden="true" /> : null}
+            <span>{pending ? "Updating..." : "Reset password"}</span>
+          </span>
         </button>
       </form>
     </AuthCard>

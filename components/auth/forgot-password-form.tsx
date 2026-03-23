@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import { AuthCard } from "@/components/auth/auth-card";
 import { StatusAlert } from "@/components/ui/status-alert";
 import { forgotPasswordRequest } from "@/lib/api/auth";
@@ -20,9 +21,11 @@ export function ForgotPasswordForm() {
       return;
     }
 
-    setPending(true);
-    setErrorMessage(null);
-    setSuccessMessage(null);
+    flushSync(() => {
+      setPending(true);
+      setErrorMessage(null);
+      setSuccessMessage(null);
+    });
 
     try {
       const response = await forgotPasswordRequest(email.trim());
@@ -87,9 +90,13 @@ export function ForgotPasswordForm() {
         <button
           type="submit"
           disabled={pending}
-          className="btn btn-primary h-11 w-full rounded-full px-6"
+          aria-busy={pending}
+          className="btn btn-primary h-11 w-full rounded-full px-6 disabled:cursor-wait"
         >
-          {pending ? "Submitting..." : "Send reset link"}
+          <span className="inline-flex items-center gap-2">
+            {pending ? <span className="loading loading-spinner loading-xs" aria-hidden="true" /> : null}
+            <span>{pending ? "Submitting..." : "Send reset link"}</span>
+          </span>
         </button>
       </form>
     </AuthCard>
