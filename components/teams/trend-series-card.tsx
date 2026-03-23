@@ -1,6 +1,7 @@
 "use client";
 
 type TrendSeriesCardProps = {
+  metric: "ppg" | "goal-diff" | "goals-for" | "goals-against";
   title: string;
   subtitle: string;
   explanation: string;
@@ -56,6 +57,26 @@ function getTrendDirectionTone(delta: number, betterDirection: "up" | "down") {
   return favorable ? "bg-primary/10 text-primary" : "bg-error/10 text-error";
 }
 
+function getTrendStatusLabel(
+  metric: TrendSeriesCardProps["metric"],
+  status: TrendDirection
+) {
+  switch (metric) {
+    case "goals-for":
+      if (status === "improving") return "Improving attack";
+      if (status === "declining") return "Cooling attack";
+      return "Stable attack";
+    case "goals-against":
+      if (status === "improving") return "Improving defense";
+      if (status === "declining") return "Worsening defense";
+      return "Stable defense";
+    default:
+      if (status === "improving") return "Improving";
+      if (status === "declining") return "Worsening";
+      return "Stable";
+  }
+}
+
 export function getTrendStatusFromSeries(
   values: number[],
   betterDirection: "up" | "down" = "up"
@@ -69,32 +90,73 @@ export function getTrendStatusFromSeries(
   return getTrendStatus(latest - previous, betterDirection);
 }
 
-function getDirectionText(delta: number, changeLabel: string) {
+function getDirectionText(
+  metric: TrendSeriesCardProps["metric"],
+  delta: number
+) {
   if (Math.abs(delta) < STABLE_DELTA_THRESHOLD) {
-    return "Holding close to the previous rolling window.";
+    switch (metric) {
+      case "ppg":
+        return "Points per game are holding close to the previous rolling window.";
+      case "goal-diff":
+        return "Goal difference per match is holding close to the previous rolling window.";
+      case "goals-for":
+        return "Goals scored per match are holding close to the previous rolling window.";
+      case "goals-against":
+        return "Goals conceded per match are holding close to the previous rolling window.";
+    }
   }
 
-  return `${delta > 0 ? "Up" : "Down"} ${Math.abs(delta).toFixed(2)} ${changeLabel} versus the previous rolling window.`;
+  switch (metric) {
+    case "ppg":
+      return `Points per game have ${delta > 0 ? "increased" : "decreased"} versus the previous rolling window.`;
+    case "goal-diff":
+      return `Goal difference per match has ${delta > 0 ? "increased" : "decreased"} versus the previous rolling window.`;
+    case "goals-for":
+      return `Goals scored per match have ${delta > 0 ? "increased" : "decreased"} versus the previous rolling window.`;
+    case "goals-against":
+      return `Goals conceded per match have ${delta > 0 ? "increased" : "decreased"} versus the previous rolling window.`;
+  }
 }
 
 function getTrendDeltaNote(
-  delta: number,
-  betterDirection: "up" | "down",
-  changeLabel: string
+  metric: TrendSeriesCardProps["metric"],
+  status: TrendDirection
 ) {
-  if (Math.abs(delta) < STABLE_DELTA_THRESHOLD) {
-    return `Change is minimal versus the previous rolling window, so ${changeLabel} is broadly steady.`;
+  switch (metric) {
+    case "ppg":
+      if (status === "improving") {
+        return "This is favorable because the team is earning more points per match.";
+      }
+      if (status === "declining") {
+        return "This is unfavorable because the team is earning fewer points per match.";
+      }
+      return "Results efficiency is staying close to recent levels.";
+    case "goal-diff":
+      if (status === "improving") {
+        return "This is favorable because match margins are improving.";
+      }
+      if (status === "declining") {
+        return "This is unfavorable because match margins are getting worse.";
+      }
+      return "The broader performance margin is staying fairly steady.";
+    case "goals-for":
+      if (status === "improving") {
+        return "This suggests attacking output is improving.";
+      }
+      if (status === "declining") {
+        return "This suggests attacking output is cooling off.";
+      }
+      return "Attacking output is staying close to recent levels.";
+    case "goals-against":
+      if (status === "improving") {
+        return "This is favorable because conceding fewer goals per match strengthens the defensive trend.";
+      }
+      if (status === "declining") {
+        return "This is unfavorable because conceding more goals per match weakens the defensive trend.";
+      }
+      return "The defensive trend is staying close to recent levels.";
   }
-
-  if (betterDirection === "down") {
-    return delta < 0
-      ? `This is favorable because lower ${changeLabel} is better for the team.`
-      : `This is unfavorable because higher ${changeLabel} is worse for the team.`;
-  }
-
-  return delta > 0
-    ? `This is favorable because higher ${changeLabel} is helping the team.`
-    : `This is unfavorable because lower ${changeLabel} points to a weaker recent window.`;
 }
 
 function getSparklinePoints(values: number[]) {
@@ -115,6 +177,7 @@ function getSparklinePoints(values: number[]) {
 }
 
 export function TrendSeriesCard({
+  metric,
   title,
   subtitle,
   explanation,
@@ -187,10 +250,10 @@ export function TrendSeriesCard({
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <span className={`rounded-full px-3 py-1 text-sm font-semibold capitalize ${getTrendTone(status)}`}>
-          {status}
+          {getTrendStatusLabel(metric, status)}
         </span>
         <span className="rounded-full border border-base-content/10 bg-base-content/[0.04] px-3 py-1 text-sm text-base-content/72">
-          {getDirectionText(delta, changeLabel)}
+          {getDirectionText(metric, delta)}
         </span>
         <span
           className={`rounded-full px-3 py-1 text-sm ${getTrendDirectionTone(
@@ -198,7 +261,7 @@ export function TrendSeriesCard({
             betterDirection
           )}`}
         >
-          {getTrendDeltaNote(delta, betterDirection, changeLabel)}
+          {getTrendDeltaNote(metric, status)}
         </span>
       </div>
 

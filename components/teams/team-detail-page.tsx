@@ -1326,6 +1326,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
 
                   <div className="grid gap-4 xl:grid-cols-2">
                     <TrendSeriesCard
+                      metric="ppg"
                       title="Points per game"
                       subtitle="How efficiently the team is turning recent matches into points."
                       explanation="Use this to judge whether results efficiency is moving up, down, or holding steady across recent rolling windows."
@@ -1343,6 +1344,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                       labels={trendsState.data.labels}
                     />
                     <TrendSeriesCard
+                      metric="goal-diff"
                       title="Goal diff per match"
                       subtitle="Whether the team is winning margins or losing ground over time."
                       explanation="This shows if broader performance is backing up the results trend or if the team is being outplayed beneath the surface."
@@ -1360,6 +1362,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                       labels={trendsState.data.labels}
                     />
                     <TrendSeriesCard
+                      metric="goals-for"
                       title="Goals for"
                       subtitle="Whether attacking output is improving across recent windows."
                       explanation="Higher rolling goals-for values suggest the attack is creating and finishing chances more consistently over time."
@@ -1377,6 +1380,7 @@ export function TeamDetailPage({ teamId }: { teamId: number }) {
                       labels={trendsState.data.labels}
                     />
                     <TrendSeriesCard
+                      metric="goals-against"
                       title="Goals against"
                       subtitle="Whether the defensive record is tightening up or slipping."
                       explanation="Lower rolling goals-against values are better here. This helps separate genuine defensive improvement from short-term noise."
